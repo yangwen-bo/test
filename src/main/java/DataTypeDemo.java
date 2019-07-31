@@ -11,5 +11,9 @@ public class DataTypeDemo {
     Scanner input=new Scanner(System.in);
     int a=input.nextInt(); //输入整型
 
+
+
+
+
     //
 }
