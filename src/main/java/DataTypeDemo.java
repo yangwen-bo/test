@@ -10,4 +10,6 @@ public class DataTypeDemo {
     //输入
     Scanner input=new Scanner(System.in);
     int a=input.nextInt(); //输入整型
+
+    //
 }
