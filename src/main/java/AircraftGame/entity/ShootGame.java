@@ -1,6 +1,7 @@
 package AircraftGame.entity;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,15 +29,6 @@ public class ShootGame extends JPanel{
     public static BufferedImage hero0; // 英雄机0图
     public static BufferedImage hero1; // 英雄机1图
 
-
-//    public static AudioClip music;
-//
-//    public static final int START = 0;
-//    public static final int RUNNING = 1;
-//    public static final int PAUSE = 2;
-//    public static final int GAME_OVER = 3;
-//    private int state = 0; // 当前状态
-//
     private Hero hero = new Hero(); // 英雄机
     private Bullet[] bullets = {}; // 子弹数组
     private FlyingObject[] flyings = {}; // 敌人数组 小蜜蜂+敌机
@@ -48,25 +40,31 @@ public class ShootGame extends JPanel{
         bullets=new Bullet[1];
         bullets[0]=new Bullet( 100,200 );
     }
-//    private Timer timer;
-//    private int intervel = 10; // 间隔时间：单位--毫秒
 
     // 静态块 初始化静态资源（图片）
     static {
         try {
             //用这种方式读取图片必须在一个路径下
-            background = ImageIO.read(ShootGame.class.getResource("background.png"));
-            start = ImageIO.read(ShootGame.class.getResource("start.png"));
-            pause = ImageIO.read(ShootGame.class.getResource("pause.png"));
-            gameover = ImageIO.read(ShootGame.class.getResource("gameover.png"));
-            airplane = ImageIO.read(ShootGame.class.getResource("airplane.png"));
-            bee = ImageIO.read(ShootGame.class.getResource("bee.png"));
-            bullet = ImageIO.read(ShootGame.class.getResource("bullet.png"));
-            hero0 = ImageIO.read(ShootGame.class.getResource("hero0.png"));
-            hero1 = ImageIO.read(ShootGame.class.getResource("hero1.png"));
+//            background = ImageIO.read(ShootGame.class.getResource("background.png"));
+//            start = ImageIO.read(ShootGame.class.getResource("start.png"));
+//            pause = ImageIO.read(ShootGame.class.getResource("pause.png"));
+//            gameover = ImageIO.read(ShootGame.class.getResource("gameover.png"));
+//            airplane = ImageIO.read(ShootGame.class.getResource("airplane.png"));
+//            bee = ImageIO.read(ShootGame.class.getResource("bee.png"));
+//            bullet = ImageIO.read(ShootGame.class.getResource("bullet.png"));
+//            hero0 = ImageIO.read(ShootGame.class.getResource("hero0.png"));
+//            hero1 = ImageIO.read(ShootGame.class.getResource("hero1.png"));
 
-//            URL musicPath = ShootGame.class.getResource("game_music.wav");
-//            music = Applet.newAudioClip(musicPath);
+            background = ImageIO.read( new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\background.png") );
+            start = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\start.png"));
+            pause = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\pause.png"));
+            gameover = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\gameover.png"));
+            airplane = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\airplane.png"));
+            bee = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\bee.png"));
+            bullet = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\bullet.png"));
+            hero0 = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\hero0.png"));
+            hero1 = ImageIO.read(new File("D:\\IDEAWorkspace\\test\\src\\main\\java\\AircraftGame\\image\\hero1.png"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
