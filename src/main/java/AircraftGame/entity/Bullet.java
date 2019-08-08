@@ -18,4 +18,16 @@ public class Bullet extends FlyingObject {
         this.x=x;//根据英雄机的位置来决定
         this.y=y;
     }
+
+    @Override
+    public void step() {
+        y-=speed;//子弹向上移动
+    }
+
+    //子弹判断是否越界
+    @Override
+    public boolean outOfBounds() {
+        return this.y<=-this.height;
+    }
+
 }

@@ -11,4 +11,14 @@ public class BoosAirplane extends FlyingObject implements Enemy {
     public int getScore() {
         return 10;//boss机 10分
     }
+
+    @Override
+    public void step() {
+
+    }
+
+    @Override
+    public boolean outOfBounds() {
+        return false;
+    }
 }

@@ -30,4 +30,22 @@ public class Bee extends FlyingObject implements Award {
     public int getType() {
         return awardType;
     }
+
+    @Override
+    public void step() {
+        //小蜜蜂x和y都会移动 而且触碰到边缘会改变方向继续向下
+        x+=xSpeed;
+        y+=ySpeed;
+        if(x>=ShootGame.WIDTH-this.width){//x向左走
+            xSpeed=-1;
+        }if(x<=0){//x<=0时 x向右走
+            xSpeed=1;
+        }
+    }
+
+    //判断是否越界
+    @Override
+    public boolean outOfBounds() {
+        return this.y>=ShootGame.HEIGHT;
+    }
 }

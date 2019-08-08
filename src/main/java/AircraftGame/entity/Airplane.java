@@ -26,4 +26,16 @@ public class Airplane extends FlyingObject implements Enemy {
     public int getScore() {
         return 5;//普通敌机 5分
     }
+
+    @Override
+    public void step() {
+        //敌机x不变，y向下移动
+        y+=speed;//y+表示向下
+    }
+
+    //判断是否越界 敌机只可能y越界，因为x给限制了范围。出屏幕则越界
+    @Override
+    public boolean outOfBounds() {
+        return this.y>=ShootGame.HEIGHT;
+    }
 }
