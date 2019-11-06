@@ -13,6 +13,15 @@ public class RequestHttpEntity {
     private String seriaNbr;//交易流水
     private String source;//请求来源
 
+    public RequestHttpEntity(String mobile, String cardNo, String seriaNbr, String source) {
+        this.mobile = mobile;
+        this.cardNo = cardNo;
+        this.seriaNbr = seriaNbr;
+        this.source = source;
+    }
+
+    public RequestHttpEntity() {
+    }
 
     public String getMobile() {
         return mobile;

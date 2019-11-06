@@ -24,7 +24,7 @@ public class SendHttpClient {
      * @param object 请求，对象，这里是 RequestHttpEntity
      * @return ResponseHttpEntity 最终响应json数据处理成我们想要的实体对象
      */
-    public ResponseHttpEntity sendHttp(String url ,Object object){
+    public static ResponseHttpEntity sendHttp(String url ,Object object){
         //导入httpclient-4.5.5.jar包
         CloseableHttpClient client = HttpClientHolder.getInstance().getClient();
         ContentType contentType = ContentType.APPLICATION_JSON.withCharset( Charset.forName( "GBK" ) );

@@ -12,6 +12,15 @@ public class ResponseHttpEntity {
     private String sendSms;//是否发送短信
     private String rspCode;//响应码
 
+    public ResponseHttpEntity(String seriaNbr, String sendSms, String rspCode) {
+        this.seriaNbr = seriaNbr;
+        this.sendSms = sendSms;
+        this.rspCode = rspCode;
+    }
+
+    public ResponseHttpEntity() {
+    }
+
     public String getSeriaNbr(){
         return seriaNbr;
     }
