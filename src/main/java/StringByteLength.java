@@ -41,4 +41,13 @@ public class StringByteLength {
          return str.getBytes(code).length;
 
     }
+
+    public static void main(String[] args) {
+            String str="*12345678";
+//        System.out.println(str.replaceFirst( ".","(除外)" ));
+        String strs="12345678";
+        System.out.println(strs.substring( 2,4 ));
+        System.out.println(strs.substring( 4,5 ));
+        System.out.println(strs.substring( 0,1 ));
+    }
 }
