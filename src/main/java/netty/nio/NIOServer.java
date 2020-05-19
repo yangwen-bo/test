@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * @Author yangwen-bo
- * @Date 2020/5/15.
+ * @Date 2020/5/16.
  * @Version 1.0
  *
  * 服务端 监听端口1234，事件：OP_ACCEPT
@@ -62,7 +62,7 @@ public class NIOServer {
                     System.out.println("客户端连接成功 生成了一个 socketChannel " + socketChannel.hashCode());
                     //将  SocketChannel 设置为非阻塞
                     socketChannel.configureBlocking(false);
-                    //将socketChannel 注册到selector, 关注事件为 OP_READ， 同时给socketChannel
+                    //将socketChannel 注册到selector, 监控事件为 OP_READ， 同时给socketChannel
                     //关联一个Buffer
                     socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
 
@@ -83,7 +83,6 @@ public class NIOServer {
                 //手动从集合中移动当前的selectionKey, 防止重复操作
                 keyIterator.remove();
             }
-
         }
     }
 }

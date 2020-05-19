@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
+import static java.util.Arrays.asList;
+
 /**
  * @Author yangwen-bo
  * @Date 2020/5/8.
@@ -54,11 +56,11 @@ public class NIOFileChannel {
                     byteRead += l; //累计读取的字节数
                     System.out.println("byteRead=" + byteRead);
                     //使用流打印, 查看当前buffer的position 和 limit
-                    Arrays.asList(byteBuffers).stream().map(buffer -> "postion=" + buffer.position() + ", limit=" + buffer.limit()).forEach(System.out::println);
+                    asList(byteBuffers).stream().map(buffer -> "postion=" + buffer.position() + ", limit=" + buffer.limit()).forEach(System.out::println);
                 }
 
                 //将所有的buffer进行flip
-                Arrays.asList(byteBuffers).forEach(buffer -> buffer.flip());
+                asList(byteBuffers).forEach(buffer -> buffer.flip());
 
                 //将数据读出显示到客户端
                 long byteWirte = 0;
@@ -68,7 +70,7 @@ public class NIOFileChannel {
                 }
 
                 //将所有的buffer 进行clear
-                Arrays.asList(byteBuffers).forEach(buffer-> {
+                asList(byteBuffers).forEach(buffer-> {
                     buffer.clear();
                 });
 
@@ -123,8 +125,8 @@ public class NIOFileChannel {
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         try {
-            fis = new FileInputStream( "1.jpg" );
-            fos = new FileOutputStream( "2.jpg" );
+            fis = new FileInputStream( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\1.jpg" );
+            fos = new FileOutputStream( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\2.jpg" );
 
             inChannel = fis.getChannel();
             outChannel = fos.getChannel();
