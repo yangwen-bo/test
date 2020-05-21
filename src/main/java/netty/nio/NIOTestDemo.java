@@ -24,13 +24,13 @@ import static java.util.Arrays.asList;
  *
  * 通道channel
  */
-public class NIOFileChannel {
+public class NIOTestDemo {
 
     //多个buffer完成读写操作
     //Scattering：将数据写入到buffer时，可以采用buffer数组，依次写入  [分散]
     //Gathering: 从buffer读取数据时，可以采用buffer数组，依次读
     @Test
-    public void test4(){
+    public void test5(){
         try {
             //使用 ServerSocketChannel 和 SocketChannel 网络
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
@@ -65,7 +65,7 @@ public class NIOFileChannel {
                 //将数据读出显示到客户端
                 long byteWirte = 0;
                 while (byteWirte < messageLength) {
-                    long l = socketChannel.write(byteBuffers); //
+                    long l = socketChannel.write(byteBuffers);
                     byteWirte += l;
                 }
 
@@ -83,24 +83,27 @@ public class NIOFileChannel {
 
     //通道之间的数据传输(直接缓冲区)
     @Test
-    public void test3() throws IOException {
-        FileChannel inChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\1.jpg" ), StandardOpenOption.READ );
-        FileChannel outChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\3.jpg" ), StandardOpenOption.READ,StandardOpenOption.WRITE ,StandardOpenOption.CREATE_NEW);//CREATE_NEW不存在就创建，存在则报错 CREATE不论是否存在都创建
+    public void test4() throws IOException {
+        FileChannel inChannel = FileChannel.open( Paths.get( "src\\main\\resources\\1.jpg" ), StandardOpenOption.READ );
+        FileChannel outChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\2.jpg" ), StandardOpenOption.READ,StandardOpenOption.WRITE ,StandardOpenOption.CREATE_NEW);//CREATE_NEW不存在就创建，存在则报错 CREATE不论是否存在都创建
 
+        //outChannel从inChannel中复制数据
         outChannel.transferFrom( inChannel,0,inChannel.size() );
+        //将inChannel中的数据复制给outChannel
 //        inChannel.transferTo( 0,inChannel.size(),outChannel );
         inChannel.close();
         outChannel.close();
     }
 
     //使用直接缓冲区复制文件，内存映射文件
+    //占用系统内存资源较大
     @Test
-    public void test2() {
+    public void test3() {
         try {
             FileChannel inChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\1.jpg" ), StandardOpenOption.READ );
             FileChannel outChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\2.jpg" ), StandardOpenOption.READ,StandardOpenOption.WRITE ,StandardOpenOption.CREATE_NEW);//CREATE_NEW不存在就创建，存在则报错 CREATE不论是否存在都创建
 
-            //内存映射文件
+            //通过内存映射文件获取缓冲区（）
             MappedByteBuffer inMapBuffer = inChannel.map( FileChannel.MapMode.READ_ONLY, 0, inChannel.size() );
             MappedByteBuffer outMapBuffer = outChannel.map( FileChannel.MapMode.READ_WRITE, 0, inChannel.size() );
 
@@ -115,6 +118,13 @@ public class NIOFileChannel {
             e.printStackTrace();
         }
 
+    }
+
+    //分配直接缓冲区
+    @Test
+    public void test2(){
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 1024 );//分配直接缓冲区
+        System.out.println(byteBuffer.isDirect());//判断是否是直接缓冲区
     }
 
     //利用通道完成复制文件,非直接缓冲区
@@ -148,6 +158,17 @@ public class NIOFileChannel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+
+    //test
+    @Test
+    public void test() throws IOException {
+        FileChannel inChannel = FileChannel.open( Paths.get( "" ) , StandardOpenOption.READ );
+        FileInputStream fileInputStream = new FileInputStream("path");
+        FileChannel fileChannel = fileInputStream.getChannel();//获取channel的一种方法
 
 
     }
