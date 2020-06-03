@@ -1,3 +1,5 @@
+package main.java;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -17,11 +19,11 @@ public class StringByteLength {
         for(int i = 0; i < s.length(); i++)
         {
             int ascii = Character.codePointAt(s, i);
-            if(ascii >= 0 && ascii <=255)
+            if(ascii >= 0 && ascii <=255){
                 length++;
-            else
+            } else{
                 length += 2;
-
+            }
         }
         return length;
 
