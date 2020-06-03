@@ -1,8 +1,9 @@
-package httpClient;
+package main.java.httpClient;
 
-import httpClient.entity.ResponseHttpEntity;
-import httpClient.util.HttpUtil;
-import httpClient.util.JsonUtil;
+
+import main.java.httpClient.entity.ResponseHttpEntity;
+import main.java.httpClient.util.HttpUtil;
+import main.java.httpClient.util.JsonUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -24,7 +25,7 @@ public class SendHttpClient {
      * @param object 请求，对象，这里是 RequestHttpEntity
      * @return ResponseHttpEntity 最终响应json数据处理成我们想要的实体对象
      */
-    public static ResponseHttpEntity sendHttp(String url ,Object object){
+    public static ResponseHttpEntity sendHttp(String url , Object object){
         //导入httpclient-4.5.5.jar包
         CloseableHttpClient client = HttpClientHolder.getInstance().getClient();
         ContentType contentType = ContentType.APPLICATION_JSON.withCharset( Charset.forName( "GBK" ) );

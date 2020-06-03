@@ -1,7 +1,8 @@
-package httpClient.test;
+package main.java.httpClient.test;
 
-import httpClient.SendHttpClient;
-import httpClient.entity.RequestHttpEntity;
+
+import main.java.httpClient.SendHttpClient;
+import main.java.httpClient.entity.RequestHttpEntity;
 
 /**
  * @Author yangwen-bo

@@ -1,4 +1,4 @@
-package httpClient.entity;
+package main.java.httpClient.entity;
 
 /**
  * @Author yangwen-bo

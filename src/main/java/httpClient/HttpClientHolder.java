@@ -1,4 +1,4 @@
-package httpClient;
+package main.java.httpClient;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
