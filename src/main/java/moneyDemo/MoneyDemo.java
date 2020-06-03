@@ -1,4 +1,4 @@
-package moneyDemo;
+package main.java.moneyDemo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
