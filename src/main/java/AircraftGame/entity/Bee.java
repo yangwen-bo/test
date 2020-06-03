@@ -1,4 +1,4 @@
-package AircraftGame.entity;
+package main.java.AircraftGame.entity;
 
 import AircraftGame.interF.Award;
 
