@@ -1,4 +1,4 @@
-package DataStructure;
+package main.java.DataStructure;
 
 /**
  * @Author yangwen-bo
