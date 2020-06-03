@@ -1,4 +1,4 @@
-package memoryLoad;
+package main.java.memoryLoad;
 
 /**
  * @Author yangwen-bo
