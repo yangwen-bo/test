@@ -1,4 +1,4 @@
-package filter;
+package main.java.filter;
 
 import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.HttpExchange;
