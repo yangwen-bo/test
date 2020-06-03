@@ -1,19 +1,21 @@
-package netty.nio;
+package main.java.netty.nio;
 
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
 
 import static java.util.Arrays.asList;
 
@@ -46,14 +48,16 @@ public class NIOTestDemo {
 
             //等客户端连接(telnet) 得到SocketChannel对象
             SocketChannel socketChannel = serverSocketChannel.accept();
-            int messageLength = 8;   //假定从客户端接收8个字节
+            //假定从客户端接收8个字节
+            int messageLength = 8;
             //循环的读取
             while (true) {
                 int byteRead = 0;
 
                 while (byteRead < messageLength ) {
                     long l = socketChannel.read(byteBuffers);
-                    byteRead += l; //累计读取的字节数
+                    //累计读取的字节数
+                    byteRead += l;
                     System.out.println("byteRead=" + byteRead);
                     //使用流打印, 查看当前buffer的position 和 limit
                     asList(byteBuffers).stream().map(buffer -> "postion=" + buffer.position() + ", limit=" + buffer.limit()).forEach(System.out::println);
@@ -95,13 +99,14 @@ public class NIOTestDemo {
         outChannel.close();
     }
 
-    //使用直接缓冲区复制文件，内存映射文件
+    //使用直接缓冲区复制文件，内存映射文件（直接缓冲区的方式只有bytebuffer支持）
     //占用系统内存资源较大
     @Test
     public void test3() {
         try {
             FileChannel inChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\1.jpg" ), StandardOpenOption.READ );
-            FileChannel outChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\2.jpg" ), StandardOpenOption.READ,StandardOpenOption.WRITE ,StandardOpenOption.CREATE_NEW);//CREATE_NEW不存在就创建，存在则报错 CREATE不论是否存在都创建
+            //CREATE_NEW不存在就创建，存在则报错 CREATE不论是否存在都创建
+            FileChannel outChannel = FileChannel.open( Paths.get( "D:\\IDEAWorkspace\\test\\src\\main\\resources\\2.jpg" ), StandardOpenOption.READ,StandardOpenOption.WRITE ,StandardOpenOption.CREATE_NEW);
 
             //通过内存映射文件获取缓冲区（）
             MappedByteBuffer inMapBuffer = inChannel.map( FileChannel.MapMode.READ_ONLY, 0, inChannel.size() );
@@ -123,8 +128,10 @@ public class NIOTestDemo {
     //分配直接缓冲区
     @Test
     public void test2(){
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 1024 );//分配直接缓冲区
-        System.out.println(byteBuffer.isDirect());//判断是否是直接缓冲区
+        //分配直接缓冲区
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 1024 );
+        //判断是否是直接缓冲区
+        System.out.println(byteBuffer.isDirect());
     }
 
     //利用通道完成复制文件,非直接缓冲区
@@ -146,9 +153,11 @@ public class NIOTestDemo {
 
             //将读通道中的数据写到缓冲区 写到写通道中去
             while (inChannel.read( buf )!=-1){
-                buf.flip();//切换读数据模式
+                //切换读数据模式
+                buf.flip();
                 outChannel.write( buf );
-                buf.clear();//清空缓冲区
+                //清空缓冲区
+                buf.clear();
             }
 
             outChannel.close();
@@ -168,9 +177,53 @@ public class NIOTestDemo {
     public void test() throws IOException {
         FileChannel inChannel = FileChannel.open( Paths.get( "" ) , StandardOpenOption.READ );
         FileInputStream fileInputStream = new FileInputStream("path");
-        FileChannel fileChannel = fileInputStream.getChannel();//获取channel的一种方法
+        //获取channel的一种方法
+        FileChannel fileChannel = fileInputStream.getChannel();
 
 
     }
+
+    //分散（将通道中的数据读取到缓存中）和聚集(将缓冲区中的数据写入到通道中)
+    @Test
+    public void test6() throws IOException {
+        RandomAccessFile raf1 = new RandomAccessFile( "1.txt", "rw" );
+
+        //获取通道
+        FileChannel channel = raf1.getChannel();
+        //分配指定大小缓冲区
+        ByteBuffer buf1 = ByteBuffer.allocate( 100 );
+        ByteBuffer buf2 = ByteBuffer.allocate( 100 );
+
+        //分散读取
+        ByteBuffer[] bufs = {buf1,buf2};
+        channel.read( bufs );
+        //切换读模式
+        for (ByteBuffer buf : bufs) {
+            buf.flip();
+        }
+        //验证按顺序存入缓冲区
+        System.out.println(new String(bufs[0].array(),0,bufs[0].limit()));
+        System.out.println("------------------------------------------------");
+        System.out.println(new String(bufs[1].array(),0,bufs[1].limit()));
+
+        //聚集写入
+        RandomAccessFile raf2 = new RandomAccessFile( "2.txt","rw" );
+        FileChannel channel2 = raf2.getChannel();
+        channel2.write( bufs );
+    }
+
+    @Test
+    public void test7(){
+        //查看可支持的字符集
+        SortedMap<String, Charset> stringCharsetSortedMap = Charset.availableCharsets();
+        Set<Map.Entry<String, Charset>> entrySet = stringCharsetSortedMap.entrySet();
+        for (Map.Entry<String, Charset> stringCharsetEntry : entrySet) {
+            System.out.println(stringCharsetEntry.getKey()+"="+stringCharsetEntry.getValue());
+        }
+
+        //获取指定编码格式的字符集
+        Charset gbk = Charset.forName( "GBK" );
+    }
+
 
 }
