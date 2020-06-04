@@ -5,11 +5,12 @@ import org.junit.Test;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.Charset;
+import java.nio.charset.*;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
@@ -28,9 +29,11 @@ import static java.util.Arrays.asList;
  */
 public class NIOTestDemo {
 
-    //多个buffer完成读写操作
-    //Scattering：将数据写入到buffer时，可以采用buffer数组，依次写入  [分散]
-    //Gathering: 从buffer读取数据时，可以采用buffer数组，依次读
+    /**
+     * 多个buffer完成读写操作
+     * Scattering：将数据写入到buffer时，可以采用buffer数组，依次写入  [分散]
+     * Gathering: 从buffer读取数据时，可以采用buffer数组，依次读
+     */
     @Test
     public void test5(){
         try {
@@ -213,7 +216,7 @@ public class NIOTestDemo {
     }
 
     @Test
-    public void test7(){
+    public void test7() throws CharacterCodingException {
         //查看可支持的字符集
         SortedMap<String, Charset> stringCharsetSortedMap = Charset.availableCharsets();
         Set<Map.Entry<String, Charset>> entrySet = stringCharsetSortedMap.entrySet();
@@ -223,6 +226,32 @@ public class NIOTestDemo {
 
         //获取指定编码格式的字符集
         Charset gbk = Charset.forName( "GBK" );
+        //获取编码器
+        CharsetEncoder ce = gbk.newEncoder();
+        //获取解码器
+        CharsetDecoder cd = gbk.newDecoder();
+
+        CharBuffer cBuf = CharBuffer.allocate( 1024 );
+        cBuf.put( "字符集操作" );
+        cBuf.flip();
+
+        //编码(将CharBuffer编码成ByteBuffer)
+        ByteBuffer byteBuffer = ce.encode( cBuf );
+        for (int i = 0; i <12 ; i++) {
+            System.out.println(byteBuffer.get());
+        }
+
+        //解码（将byteBuffer解码成CharBuffer）
+        byteBuffer.flip();
+        CharBuffer charBuffer = cd.decode( byteBuffer );
+        System.out.println(charBuffer.toString());
+
+        System.out.println("----------使用另一种字符集来对bytebuffer进行解码(bytebuffer是按照gbk编码，按照utf-8解码，最终是乱码)------------");
+        Charset utf = Charset.forName( "UTF-8" );
+        byteBuffer.flip();
+        CharBuffer decode = utf.decode( byteBuffer );
+        System.out.println(decode.toString());
+
     }
 
 
