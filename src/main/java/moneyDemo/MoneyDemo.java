@@ -1,8 +1,12 @@
-package main.java.moneyDemo;
+package moneyDemo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import moneyDemo.MoneyUtils;
 
 /**
  * @Author yangwen-bo
@@ -99,7 +103,7 @@ public class MoneyDemo {
         totalFee：总手续费
          */
         String moneyType = "";
-        double baseAmount = 600.55;
+        double baseAmount = 633.55;
         int stagePeriod =3;
         int percent =3;
         double totalFee =24.5;
@@ -107,8 +111,19 @@ public class MoneyDemo {
 //        List<Object> result = calcFee(moneyType,totalFee,stagePeriod);
         System.out.println(result.get( 0 ));
 
+        DecimalFormat df2 =new DecimalFormat("#.00");
+        System.out.println(df2.format( result.get( 0 ) ));
+
 //        for (Object object : result) {
 //            System.out.println( object );
 //        }
+
+
+        // BigDecimal a =null;
+        // Integer faultRate = 6;
+        // a = BigDecimal.valueOf(faultRate.doubleValue()/3);
+        // BigDecimal  b =a.setScale(2, RoundingMode.HALF_UP);//保留两位小数
+        // System.out.println("结果是"+b);
+
     }
 }
