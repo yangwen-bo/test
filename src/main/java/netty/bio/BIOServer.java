@@ -1,4 +1,4 @@
-package main.java.netty.bio;
+package netty.bio;
 
 import java.io.InputStream;
 import java.net.ServerSocket;

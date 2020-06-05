@@ -1,4 +1,4 @@
-package main.java.netty.nio;
+package netty.nio;
 
 import org.junit.Test;
 
