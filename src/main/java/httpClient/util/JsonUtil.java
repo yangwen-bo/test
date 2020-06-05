@@ -1,4 +1,4 @@
-package main.java.httpClient.util;
+package httpClient.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

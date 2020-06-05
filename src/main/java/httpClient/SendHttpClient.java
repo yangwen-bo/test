@@ -1,9 +1,9 @@
-package main.java.httpClient;
+package httpClient;
 
 
 import main.java.httpClient.entity.ResponseHttpEntity;
-import main.java.httpClient.util.HttpUtil;
-import main.java.httpClient.util.JsonUtil;
+import httpClient.util.HttpUtil;
+import httpClient.util.JsonUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;

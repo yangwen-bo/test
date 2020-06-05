@@ -1,4 +1,4 @@
-package main.java.httpClient.util;
+package httpClient.util;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
