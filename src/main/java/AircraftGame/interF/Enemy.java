@@ -1,4 +1,4 @@
-package main.java.AircraftGame.interF;
+package AircraftGame.interF;
 
 /**
  * Created by lenovo on 2019/8/1.

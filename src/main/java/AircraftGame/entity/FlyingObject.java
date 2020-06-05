@@ -1,4 +1,4 @@
-package main.java.AircraftGame.entity;
+package AircraftGame.entity;
 
 import java.awt.image.BufferedImage;
 

@@ -1,7 +1,8 @@
-package main.java.AircraftGame.entity;
+package AircraftGame.entity;
 
 
-import main.java.AircraftGame.interF.Enemy;
+
+import AircraftGame.interF.Enemy;
 
 import java.util.Random;
 
