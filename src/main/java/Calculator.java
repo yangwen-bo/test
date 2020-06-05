@@ -1,4 +1,3 @@
-package main.java;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -91,6 +90,7 @@ public class Calculator {
 
         // 数 字 键
         class Listener implements ActionListener {
+            @Override
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e) {
                 String ss = ((JButton) e.getSource()).getText();
@@ -122,6 +122,7 @@ public class Calculator {
 
         // 符 号
         class Listener_signal implements ActionListener {
+            @Override
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e) {
                 String ss2 = ((JButton) e.getSource()).getText();
@@ -159,6 +160,7 @@ public class Calculator {
 
         // 清除
         class Listener_clear implements ActionListener {
+            @Override
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e) {
                 store = (JButton) e.getSource();
@@ -179,6 +181,7 @@ public class Calculator {
 
         // 等 于
         class Listener_dy implements ActionListener {
+            @Override
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e) {
 
@@ -196,6 +199,7 @@ public class Calculator {
         }
         // 小数点
         class Listener_xiaos implements ActionListener {
+            @Override
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e) {
                 store = (JButton) e.getSource();
@@ -257,6 +261,7 @@ public class Calculator {
 
         // 关闭事件处理程序
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
@@ -277,9 +282,12 @@ public class Calculator {
         } else {
 
             if (str1.equals(".")) // 字符串 "." 转换成double型数据时 会出错 所以手工转
+            {
                 str1 = "0.0";
-            if (str2.equals("."))
+            }
+            if (str2.equals(".")) {
                 str2 = "0.0";
+            }
             a2 = Double.valueOf(str1).doubleValue();
             b2 = Double.valueOf(str2).doubleValue();
 
