@@ -1,5 +1,6 @@
 package forkJoin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
@@ -30,7 +31,7 @@ public class submitBillDemo {
         }
 
         private List<String> addDate(){
-            List<String> rows = null;
+            List<String> rows = new ArrayList();
             for (int i = start; i < end; i++) {
                 rows.add( "第"+i+"个数据" );
             }
@@ -39,10 +40,11 @@ public class submitBillDemo {
 
         @Override
         protected List<String> compute() {
-            List<String> result = null;
+            List<String> result = new ArrayList();
 
             if ((end - start) <= THRESHOLD) {
-                return addDate();
+                result.addAll( addDate() );
+                return result;
             }else {
                 //使用二分法分配任务
                 int inter = (start + end) / 2;
@@ -80,10 +82,11 @@ public class submitBillDemo {
         page.setPageSizeZero( false );*/
 
         ForkJoinPool pool = new ForkJoinPool();
+
         ForkJoinTask< List<String> > result = pool.submit( new MyRecursiveTask(1,13));
 
         try {
-            System.out.println(result.get());
+            System.out.println(result.get().toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
